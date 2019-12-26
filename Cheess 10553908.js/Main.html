@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+		
+		<title>JS CW 10553908 Chess</title>
+		
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="https://unpkg.com/mocha/mocha.css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+		<link rel="stylesheet" href="css/chessboard-1.0.0.css">
+		<script src="main.js"></script>
+		<script src="customChess.js"></script>
+		<script src="js/chessboard-1.0.0.js"></script>
+    </head>
+
+    <body>
+		
+		<div id="mainBoard" style="width: 60%"></div>
+		
+		<button id="showPositionBtn">Show position in console</button>
+		
+		<script src="js\chessboard-1.0.0.js"></script>
+        <!-- Do not edit this section. -->
+        <div id="mocha"></div>
+    
+        <script src="https://unpkg.com/chai/chai.js"></script>
+        <script src="https://unpkg.com/mocha/mocha.js"></script>
+    
+        <script class="mocha-init">
+            mocha.setup('tdd');
+            mocha.checkLeaks();
+        </script>
+        
+        <script class="mocha-exec">
+            mocha.run();
+        </script>
+
+		<script>
+		
+		var board;
+		
+		var whiteSquareGrey = '#FF3A3A'
+		var blackSquareGrey = '#CD2D2D'
+		
+		$(window).on("load", function() {
+			var startboard = new Array(8); 
+ 
+			for(var i = 0; i < 8; i++) {
+				startboard[i] = new Array(8); 
+			}
+			
+			var chess = new ChessRules(startboard);
+			
+			board = setBoardStart();
+			
+		});
+		
+		$('#showPositionBtn').on('click', clickShowPositionBtn); 
+
+	</script>
+		
+    </body>
+</html>
