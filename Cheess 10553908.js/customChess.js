@@ -38,7 +38,7 @@ class ChessRules
 		
 		var numPos = chess.convertLetterToNumber(position)
 
-		if(team = 'w')
+		if(team == 'w')
 		{
 			if(position == 'a2' || position == 'b2' || position == 'c2'|| position == 'd2' || position == 'e2' 
 				|| position == 'f2' || position == 'g2' || position == 'h2')
@@ -81,14 +81,14 @@ class ChessRules
 				if(this.board[numPos[1] - 2][numPos[0]] == '-')
 				{
 					console.log('Legal Move');
-					move.push(chess.convertNumberToLetter(numPos[1] + 1, numPos[0]));
+					move.push(chess.convertNumberToLetter(numPos[1] - 2, numPos[0]));
 				}
 			}
 
-			if(this.board[numPos[1] + 1][numPos[0]] == '-')
+			if(this.board[numPos[1] - 1][numPos[0]] == '-')
 			{
 				console.log('Legal Move');
-				move.push(chess.convertNumberToLetter(numPos[1] + 1, numPos[0]));
+				move.push(chess.convertNumberToLetter(numPos[1] - 1, numPos[0]));
 			}
 
 			if(this.board[numPos[1] - 1][numPos[0] + 1] == 'R' || this.board[numPos[1] - 1][numPos[0] + 1] == 'N'

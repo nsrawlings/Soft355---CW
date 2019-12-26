@@ -131,7 +131,7 @@ function setBoardStart()
 		showNotation: true,
 		orientation: 'white',
 		position: 'start',
-		onDragStart: onDragStart,
+		//onDragStart: onDragStart,
 		onDrop: onDrop,
 		onMouseoutSquare: onMouseoutSquare,
 		onMouseoverSquare: onMouseoverSquare,
