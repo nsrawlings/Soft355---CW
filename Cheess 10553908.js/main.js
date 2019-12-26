@@ -35,15 +35,45 @@ function greySquare (square) {
   $square.css('background', background)
 }
 
-function onDrop (source, target) {
-  removeGreySquares()
-  console.log("Drop")
+function onDrop (source, target, piece) 
+{
+	var moves = [];
+	var leagl = false;
+  	removeGreySquares()
+  	console.log("Drop")
+
+  	moves = chess.moves(source, piece, moves);
+
+	for (var i = 0; i < moves.length; i++) 
+	{
+		if(moves[i] == target)
+		{
+			leagl = true;
+		}
+  	}
+
+	if(leagl == false)
+	{
+		return 'snapback';
+	}
 }
 
 function onMouseoverSquare (square, piece) {
+	var moves = [];
 	console.log("Mouse Over");
 	postion = board.position();
-	chess.moves(square, piece);
+	moves = chess.moves(square, piece, moves);
+
+	// exit if there are no moves available for this square
+  if (moves.length === 0) return
+
+  // highlight the square they moused over
+  greySquare(square)
+
+  // highlight the possible squares for this piece
+  for (var i = 0; i < moves.length; i++) {
+    greySquare(moves[i])
+  }
 }
 
 function onMouseoutSquare (square, piece) {
@@ -55,7 +85,7 @@ function onSnapEnd () {
   //console.log("Snap End")
 }
 
-function createArratBoard(fen, arrayBoard)
+function createArrayBoard(fen, arrayBoard)
 {
 	fenArray = fen.split('/');
 
@@ -98,7 +128,7 @@ function setBoardStart()
 	var config = 
 	{
 		draggable: true,
-		showNotation: false,
+		showNotation: true,
 		orientation: 'white',
 		position: 'start',
 		onDragStart: onDragStart,
@@ -108,10 +138,12 @@ function setBoardStart()
 		onSnapEnd: onSnapEnd
 	}
 	
+	console.log(chess.board);
+
 	board = Chessboard('mainBoard', config)
 	var fen = board.fen();
 	
-	chess.board = createArratBoard(chess.board);
+	chess.board = createArrayBoard(fen, chess.board);
 	
 	$(window).resize(board.resize)
 

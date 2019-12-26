@@ -50,8 +50,10 @@
 				startboard[i] = new Array(8); 
 			}
 			
-			var chess = new ChessRules(startboard);
+			window.chess = new ChessRules(startboard);
 			
+			console.log(chess.board);
+
 			board = setBoardStart();
 			
 		});
