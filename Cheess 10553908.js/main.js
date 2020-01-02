@@ -82,15 +82,20 @@ function onMouseoutSquare (square, piece) {
 }
 
 function onSnapEnd () {
-  //console.log("Snap End")
+	var fen = board.fen();
+	
+	chess.board = createArrayBoard(fen, chess.board);
 }
 
 function createArrayBoard(fen, arrayBoard)
 {
 	fenArray = fen.split('/');
-
-	for(var i = 0; i < 8; i++)
+	var count;
+	var lineCount = 0;
+	for(var i = 7; i >= 0; i--)
 	{
+		
+		count = 0;
 		var line = fenArray[i].split('');
 		
 		if(line[0] != '8')
@@ -102,12 +107,14 @@ function createArrayBoard(fen, arrayBoard)
 				{
 					for	(var k = 0; k < line[j]; k++)
 					{
-						arrayBoard[i][j] = ('-')
+						arrayBoard[lineCount][count] = ('-')
+						count++;
 					}
 				}
 				else
 				{
-					arrayBoard[i][j] = line[j];
+					arrayBoard[lineCount][count] = line[j];
+					count++;
 				}
 			}
 		}
@@ -115,9 +122,10 @@ function createArrayBoard(fen, arrayBoard)
 		{
 			for	(var k = 0; k < 8; k++)
 			{
-				arrayBoard[i][k] = '-';
+				arrayBoard[lineCount][k] = '-';
 			}
 		}
+		lineCount++;
 	}
 	
 	return arrayBoard;
