@@ -43,7 +43,7 @@ function onDrop (source, target, piece)
   	console.log("Drop")
 
   	moves = chess.moves(source, piece, moves);
-
+	var check = chess.check(piece);
 	for (var i = 0; i < moves.length; i++) 
 	{
 		if(moves[i] == target)
@@ -84,6 +84,15 @@ function onMouseoutSquare (square, piece) {
 function onSnapEnd () {
 	var fen = board.fen();
 	
+	chess.board = createArrayBoard(fen, chess.board);
+	
+	var move = { msg:  fen }
+	socket.emit('move', move)
+}
+
+function recieveMove(fen)
+{
+	board.position(fen);
 	chess.board = createArrayBoard(fen, chess.board);
 }
 

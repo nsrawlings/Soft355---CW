@@ -824,140 +824,386 @@ class ChessRules
 		if(team == 'w')
 		{
 			//North
-			if(this.board[numPos[1] + 1][numPos[0]] == '-' || this.board[numPos[1] + 1][numPos[0]] == 'r' || this.board[numPos[1] + 1][numPos[0]] == 'n'
-			|| this.board[numPos[1] + 1][numPos[0]] == 'q' || this.board[numPos[1] + 1][numPos[0]] == 'k'
-			|| this.board[numPos[1] + 1][numPos[0]] == 'p' || this.board[numPos[1] + 1][numPos[0]] == 'b')
-			{
-				console.log(this.board[numPos[1] + 1][numPos[0]]);
-				move.push(chess.convertNumberToLetter(numPos[1] + 1, numPos[0]));
+			if(numPos[1] + 1 < 8)
+				{
+				if(this.board[numPos[1] + 1][numPos[0]] == '-' || this.board[numPos[1] + 1][numPos[0]] == 'r' || this.board[numPos[1] + 1][numPos[0]] == 'n'
+				|| this.board[numPos[1] + 1][numPos[0]] == 'q' || this.board[numPos[1] + 1][numPos[0]] == 'k'
+				|| this.board[numPos[1] + 1][numPos[0]] == 'p' || this.board[numPos[1] + 1][numPos[0]] == 'b')
+				{
+					console.log(this.board[numPos[1] + 1][numPos[0]]);
+					move.push(chess.convertNumberToLetter(numPos[1] + 1, numPos[0]));
+				}
 			}
 			//North East
-			if(this.board[numPos[1] + 1][numPos[0] + 1] == '-' || this.board[numPos[1] + 1][numPos[0] + 1] == 'r' || this.board[numPos[1] + 1][numPos[0] + 1] == 'n'
-			|| this.board[numPos[1] + 1][numPos[0] + 1] == 'q' || this.board[numPos[1] + 1][numPos[0] + 1] == 'k'
-			|| this.board[numPos[1] + 1][numPos[0] + 1] == 'p' || this.board[numPos[1] + 1][numPos[0] + 1] == 'b')
+			if(numPos[1] + 1 < 8 && numPos[0] + 1 < 8)
+			{
+				if(this.board[numPos[1] + 1][numPos[0] + 1] == '-' || this.board[numPos[1] + 1][numPos[0] + 1] == 'r' || this.board[numPos[1] + 1][numPos[0] + 1] == 'n'
+				|| this.board[numPos[1] + 1][numPos[0] + 1] == 'q' || this.board[numPos[1] + 1][numPos[0] + 1] == 'k'
+				|| this.board[numPos[1] + 1][numPos[0] + 1] == 'p' || this.board[numPos[1] + 1][numPos[0] + 1] == 'b')
 			{
 				console.log(this.board[numPos[1] + 1][numPos[0] + 1]);
 				move.push(chess.convertNumberToLetter(numPos[1] + 1, numPos[0] + 1));
+				}
 			}
 			//East
-			if(this.board[numPos[1]][numPos[0] + 1] == '-' || this.board[numPos[1]][numPos[0] + 1] == 'r' || this.board[numPos[1]][numPos[0] + 1] == 'n'
-			|| this.board[numPos[1]][numPos[0] + 1] == 'q' || this.board[numPos[1]][numPos[0] + 1] == 'k'
-			|| this.board[numPos[1]][numPos[0] + 1] == 'p' || this.board[numPos[1]][numPos[0] + 1] == 'b')
+			if(numPos[0] + 1 < 8)
 			{
-				console.log(this.board[numPos[1]][numPos[0] + 1]);
-				move.push(chess.convertNumberToLetter(numPos[1], numPos[0] + 1));
+				if(this.board[numPos[1]][numPos[0] + 1] == '-' || this.board[numPos[1]][numPos[0] + 1] == 'r' || this.board[numPos[1]][numPos[0] + 1] == 'n'
+				|| this.board[numPos[1]][numPos[0] + 1] == 'q' || this.board[numPos[1]][numPos[0] + 1] == 'k'
+				|| this.board[numPos[1]][numPos[0] + 1] == 'p' || this.board[numPos[1]][numPos[0] + 1] == 'b')
+				{
+					console.log(this.board[numPos[1]][numPos[0] + 1]);
+					move.push(chess.convertNumberToLetter(numPos[1], numPos[0] + 1));
+				}
 			}
 			//South East
-			if(this.board[numPos[1] - 1][numPos[0] + 1] == '-' || this.board[numPos[1] - 1][numPos[0] + 1] == 'r' || this.board[numPos[1] - 1][numPos[0] + 1] == 'n'
-			|| this.board[numPos[1] - 1][numPos[0] + 1] == 'q' || this.board[numPos[1] - 1][numPos[0] + 1] == 'k'
-			|| this.board[numPos[1] - 1][numPos[0] + 1] == 'p' || this.board[numPos[1] - 1][numPos[0] + 1] == 'b')
+			if(numPos[1] - 1 >= 0 && numPos[0] + 1 < 8)
+			{
+				if(this.board[numPos[1] - 1][numPos[0] + 1] == '-' || this.board[numPos[1] - 1][numPos[0] + 1] == 'r' || this.board[numPos[1] - 1][numPos[0] + 1] == 'n'
+				|| this.board[numPos[1] - 1][numPos[0] + 1] == 'q' || this.board[numPos[1] - 1][numPos[0] + 1] == 'k'
+				|| this.board[numPos[1] - 1][numPos[0] + 1] == 'p' || this.board[numPos[1] - 1][numPos[0] + 1] == 'b')
 			{
 				console.log(this.board[numPos[1] - 1][numPos[0] + 1]);
 				move.push(chess.convertNumberToLetter(numPos[1] - 1, numPos[0] + 1));
+				}
 			}
 			//South
-			if(this.board[numPos[1] - 1][numPos[0]] == '-' || this.board[numPos[1] - 1][numPos[0]] == 'r' || this.board[numPos[1] - 1][numPos[0]] == 'n'
-			|| this.board[numPos[1] - 1][numPos[0]] == 'q' || this.board[numPos[1] - 1][numPos[0]] == 'k'
-			|| this.board[numPos[1] - 1][numPos[0]] == 'p' || this.board[numPos[1] - 1][numPos[0]] == 'b')
+			if(numPos[1] - 1 >= 0)
+			{
+				if(this.board[numPos[1] - 1][numPos[0]] == '-' || this.board[numPos[1] - 1][numPos[0]] == 'r' || this.board[numPos[1] - 1][numPos[0]] == 'n'
+				|| this.board[numPos[1] - 1][numPos[0]] == 'q' || this.board[numPos[1] - 1][numPos[0]] == 'k'
+				|| this.board[numPos[1] - 1][numPos[0]] == 'p' || this.board[numPos[1] - 1][numPos[0]] == 'b')
 			{
 				console.log(this.board[numPos[1] - 1][numPos[0]]);
 				move.push(chess.convertNumberToLetter(numPos[1] - 1, numPos[0]));
+				}
 			}
 			//South West
-			if(this.board[numPos[1] - 1][numPos[0] - 1] == '-' || this.board[numPos[1] - 1][numPos[0] - 1] == 'r' || this.board[numPos[1] - 1][numPos[0] - 1] == 'n'
-			|| this.board[numPos[1] - 1][numPos[0] - 1] == 'q' || this.board[numPos[1] - 1][numPos[0] - 1] == 'k'
-			|| this.board[numPos[1] - 1][numPos[0] - 1] == 'p' || this.board[numPos[1] - 1][numPos[0] - 1] == 'b')
+			if(numPos[1] - 1 >= 0 && numPos[0] - 1 >= 0 )
+			{
+				if(this.board[numPos[1] - 1][numPos[0] - 1] == '-' || this.board[numPos[1] - 1][numPos[0] - 1] == 'r' || this.board[numPos[1] - 1][numPos[0] - 1] == 'n'
+				|| this.board[numPos[1] - 1][numPos[0] - 1] == 'q' || this.board[numPos[1] - 1][numPos[0] - 1] == 'k'
+				|| this.board[numPos[1] - 1][numPos[0] - 1] == 'p' || this.board[numPos[1] - 1][numPos[0] - 1] == 'b')
 			{
 				console.log(this.board[numPos[1] - 1][numPos[0] - 1]);
 				move.push(chess.convertNumberToLetter(numPos[1] - 1, numPos[0] - 1));
+				}
 			}
 			//West
-			if(this.board[numPos[1]][numPos[0] - 1] == '-' || this.board[numPos[1]][numPos[0] - 1] == 'r' || this.board[numPos[1]][numPos[0] - 1] == 'n'
-			|| this.board[numPos[1]][numPos[0] - 1] == 'q' || this.board[numPos[1]][numPos[0] - 1] == 'k'
-			|| this.board[numPos[1]][numPos[0] - 1] == 'p' || this.board[numPos[1]][numPos[0] - 1] == 'b')
+			if(numPos[0] - 1 >= 0)
 			{
+				if(this.board[numPos[1]][numPos[0] - 1] == '-' || this.board[numPos[1]][numPos[0] - 1] == 'r' || this.board[numPos[1]][numPos[0] - 1] == 'n'
+				|| this.board[numPos[1]][numPos[0] - 1] == 'q' || this.board[numPos[1]][numPos[0] - 1] == 'k'
+				|| this.board[numPos[1]][numPos[0] - 1] == 'p' || this.board[numPos[1]][numPos[0] - 1] == 'b')
+				{
 				console.log(this.board[numPos[1]][numPos[0] - 1]);
 				move.push(chess.convertNumberToLetter(numPos[1], numPos[0] - 1));
+				}
 			}
 			//North West
-			if(this.board[numPos[1] + 1][numPos[0] - 1] == '-' || this.board[numPos[1] + 1][numPos[0] - 1] == 'r' || this.board[numPos[1] + 1][numPos[0] - 1] == 'n'
-			|| this.board[numPos[1] + 1][numPos[0] - 1] == 'q' || this.board[numPos[1] + 1][numPos[0] - 1] == 'k'
-			|| this.board[numPos[1] + 1][numPos[0] - 1] == 'p' || this.board[numPos[1] + 1][numPos[0] - 1] == 'b')
+			if(numPos[1] + 1 < 8 && numPos[0] - 1 >= 0)
+			{
+				if(this.board[numPos[1] + 1][numPos[0] - 1] == '-' || this.board[numPos[1] + 1][numPos[0] - 1] == 'r' || this.board[numPos[1] + 1][numPos[0] - 1] == 'n'
+				|| this.board[numPos[1] + 1][numPos[0] - 1] == 'q' || this.board[numPos[1] + 1][numPos[0] - 1] == 'k'
+				|| this.board[numPos[1] + 1][numPos[0] - 1] == 'p' || this.board[numPos[1] + 1][numPos[0] - 1] == 'b')
 			{
 				console.log(this.board[numPos[1] + 1][numPos[0] - 1]);
 				move.push(chess.convertNumberToLetter(numPos[1] + 1, numPos[0] - 1));
+				}
 			}
 		}
 		else
 		{
 			//North
-			if(this.board[numPos[1] + 1][numPos[0]] == '-' || this.board[numPos[1] + 1][numPos[0]] == 'R' || this.board[numPos[1] + 1][numPos[0]] == 'N'
-			|| this.board[numPos[1] + 1][numPos[0]] == 'Q' || this.board[numPos[1] + 1][numPos[0]] == 'K'
-			|| this.board[numPos[1] + 1][numPos[0]] == 'P' || this.board[numPos[1] + 1][numPos[0]] == 'B')
-			{
-				console.log(this.board[numPos[1] + 1][numPos[0]]);
-				move.push(chess.convertNumberToLetter(numPos[1] + 1, numPos[0]));
+			if(numPos[1] + 1 < 8)
+				{
+				if(this.board[numPos[1] + 1][numPos[0]] == '-' || this.board[numPos[1] + 1][numPos[0]] == 'R' || this.board[numPos[1] + 1][numPos[0]] == 'N'
+				|| this.board[numPos[1] + 1][numPos[0]] == 'Q' || this.board[numPos[1] + 1][numPos[0]] == 'K'
+				|| this.board[numPos[1] + 1][numPos[0]] == 'P' || this.board[numPos[1] + 1][numPos[0]] == 'B')
+				{
+					console.log(this.board[numPos[1] + 1][numPos[0]]);
+					move.push(chess.convertNumberToLetter(numPos[1] + 1, numPos[0]));
+				}
 			}
 			//North East
-			if(this.board[numPos[1] + 1][numPos[0] + 1] == '-' || this.board[numPos[1] + 1][numPos[0] + 1] == 'R' || this.board[numPos[1] + 1][numPos[0] + 1] == 'N'
-			|| this.board[numPos[1] + 1][numPos[0] + 1] == 'Q' || this.board[numPos[1] + 1][numPos[0] + 1] == 'K'
-			|| this.board[numPos[1] + 1][numPos[0] + 1] == 'P' || this.board[numPos[1] + 1][numPos[0] + 1] == 'B')
+			if(numPos[1] + 1 < 8 && numPos[0] + 1 < 8)
+			{
+				if(this.board[numPos[1] + 1][numPos[0] + 1] == '-' || this.board[numPos[1] + 1][numPos[0] + 1] == 'R' || this.board[numPos[1] + 1][numPos[0] + 1] == 'N'
+				|| this.board[numPos[1] + 1][numPos[0] + 1] == 'Q' || this.board[numPos[1] + 1][numPos[0] + 1] == 'K'
+				|| this.board[numPos[1] + 1][numPos[0] + 1] == 'P' || this.board[numPos[1] + 1][numPos[0] + 1] == 'B')
 			{
 				console.log(this.board[numPos[1] + 1][numPos[0] + 1]);
 				move.push(chess.convertNumberToLetter(numPos[1] + 1, numPos[0] + 1));
+				}
 			}
 			//East
-			if(this.board[numPos[1]][numPos[0] + 1] == '-' || this.board[numPos[1]][numPos[0] + 1] == 'R' || this.board[numPos[1]][numPos[0] + 1] == 'N'
-			|| this.board[numPos[1]][numPos[0] + 1] == 'Q' || this.board[numPos[1]][numPos[0] + 1] == 'K'
-			|| this.board[numPos[1]][numPos[0] + 1] == 'P' || this.board[numPos[1]][numPos[0] + 1] == 'B')
+			if(numPos[0] + 1 < 8)
 			{
-				console.log(this.board[numPos[1]][numPos[0] + 1]);
-				move.push(chess.convertNumberToLetter(numPos[1], numPos[0] + 1));
+				if(this.board[numPos[1]][numPos[0] + 1] == '-' || this.board[numPos[1]][numPos[0] + 1] == 'R' || this.board[numPos[1]][numPos[0] + 1] == 'N'
+				|| this.board[numPos[1]][numPos[0] + 1] == 'Q' || this.board[numPos[1]][numPos[0] + 1] == 'K'
+				|| this.board[numPos[1]][numPos[0] + 1] == 'P' || this.board[numPos[1]][numPos[0] + 1] == 'B')
+				{
+					console.log(this.board[numPos[1]][numPos[0] + 1]);
+					move.push(chess.convertNumberToLetter(numPos[1], numPos[0] + 1));
+				}
 			}
 			//South East
-			if(this.board[numPos[1] - 1][numPos[0] + 1] == '-' || this.board[numPos[1] - 1][numPos[0] + 1] == 'R' || this.board[numPos[1] - 1][numPos[0] + 1] == 'N'
-			|| this.board[numPos[1] - 1][numPos[0] + 1] == 'Q' || this.board[numPos[1] - 1][numPos[0] + 1] == 'K'
-			|| this.board[numPos[1] - 1][numPos[0] + 1] == 'P' || this.board[numPos[1] - 1][numPos[0] + 1] == 'B')
+			if(numPos[1] - 1 >= 0 && numPos[0] + 1 < 8)
+			{
+				if(this.board[numPos[1] - 1][numPos[0] + 1] == '-' || this.board[numPos[1] - 1][numPos[0] + 1] == 'R' || this.board[numPos[1] - 1][numPos[0] + 1] == 'N'
+				|| this.board[numPos[1] - 1][numPos[0] + 1] == 'Q' || this.board[numPos[1] - 1][numPos[0] + 1] == 'K'
+				|| this.board[numPos[1] - 1][numPos[0] + 1] == 'P' || this.board[numPos[1] - 1][numPos[0] + 1] == 'B')
 			{
 				console.log(this.board[numPos[1] - 1][numPos[0] + 1]);
 				move.push(chess.convertNumberToLetter(numPos[1] - 1, numPos[0] + 1));
+				}
 			}
 			//South
-			if(this.board[numPos[1] - 1][numPos[0]] == '-' || this.board[numPos[1] - 1][numPos[0]] == 'R' || this.board[numPos[1] - 1][numPos[0]] == 'N'
-			|| this.board[numPos[1] - 1][numPos[0]] == 'Q' || this.board[numPos[1] - 1][numPos[0]] == 'K'
-			|| this.board[numPos[1] - 1][numPos[0]] == 'P' || this.board[numPos[1] - 1][numPos[0]] == 'B')
+			if(numPos[1] - 1 >= 0)
+			{
+				if(this.board[numPos[1] - 1][numPos[0]] == '-' || this.board[numPos[1] - 1][numPos[0]] == 'R' || this.board[numPos[1] - 1][numPos[0]] == 'N'
+				|| this.board[numPos[1] - 1][numPos[0]] == 'Q' || this.board[numPos[1] - 1][numPos[0]] == 'K'
+				|| this.board[numPos[1] - 1][numPos[0]] == 'P' || this.board[numPos[1] - 1][numPos[0]] == 'B')
 			{
 				console.log(this.board[numPos[1] - 1][numPos[0]]);
 				move.push(chess.convertNumberToLetter(numPos[1] - 1, numPos[0]));
+				}
 			}
 			//South West
-			if(this.board[numPos[1] - 1][numPos[0] - 1] == '-' || this.board[numPos[1] - 1][numPos[0] - 1] == 'R' || this.board[numPos[1] - 1][numPos[0] - 1] == 'N'
-			|| this.board[numPos[1] - 1][numPos[0] - 1] == 'Q' || this.board[numPos[1] - 1][numPos[0] - 1] == 'K'
-			|| this.board[numPos[1] - 1][numPos[0] - 1] == 'P' || this.board[numPos[1] - 1][numPos[0] - 1] == 'B')
+			if(numPos[1] - 1 >= 0 && numPos[0] - 1 >= 0 )
+			{
+				if(this.board[numPos[1] - 1][numPos[0] - 1] == '-' || this.board[numPos[1] - 1][numPos[0] - 1] == 'R' || this.board[numPos[1] - 1][numPos[0] - 1] == 'N'
+				|| this.board[numPos[1] - 1][numPos[0] - 1] == 'Q' || this.board[numPos[1] - 1][numPos[0] - 1] == 'K'
+				|| this.board[numPos[1] - 1][numPos[0] - 1] == 'P' || this.board[numPos[1] - 1][numPos[0] - 1] == 'B')
 			{
 				console.log(this.board[numPos[1] - 1][numPos[0] - 1]);
 				move.push(chess.convertNumberToLetter(numPos[1] - 1, numPos[0] - 1));
+				}
 			}
 			//West
-			if(this.board[numPos[1]][numPos[0] - 1] == '-' || this.board[numPos[1]][numPos[0] - 1] == 'R' || this.board[numPos[1]][numPos[0] - 1] == 'N'
-			|| this.board[numPos[1]][numPos[0] - 1] == 'Q' || this.board[numPos[1]][numPos[0] - 1] == 'K'
-			|| this.board[numPos[1]][numPos[0] - 1] == 'P' || this.board[numPos[1]][numPos[0] - 1] == 'B')
+			if(numPos[0] - 1 >= 0)
 			{
-				console.log(this.board[numPos[1]][numPos[0] - 1]);
-				move.push(chess.convertNumberToLetter(numPos[1], numPos[0] - 1));
+				if(this.board[numPos[1]][numPos[0] - 1] == '-' || this.board[numPos[1]][numPos[0] - 1] == 'R' || this.board[numPos[1]][numPos[0] - 1] == 'N'
+				|| this.board[numPos[1]][numPos[0] - 1] == 'Q' || this.board[numPos[1]][numPos[0] - 1] == 'k'
+				|| this.board[numPos[1]][numPos[0] - 1] == 'P' || this.board[numPos[1]][numPos[0] - 1] == 'b')
+				{
+					console.log(this.board[numPos[1]][numPos[0] - 1]);
+					move.push(chess.convertNumberToLetter(numPos[1], numPos[0] - 1));
+				}
 			}
 			//North West
-			if(this.board[numPos[1] + 1][numPos[0] - 1] == '-' || this.board[numPos[1] + 1][numPos[0] - 1] == 'R' || this.board[numPos[1] + 1][numPos[0] - 1] == 'N'
-			|| this.board[numPos[1] + 1][numPos[0] - 1] == 'Q' || this.board[numPos[1] + 1][numPos[0] - 1] == 'K'
-			|| this.board[numPos[1] + 1][numPos[0] - 1] == 'P' || this.board[numPos[1] + 1][numPos[0] - 1] == 'B')
+			if(numPos[1] + 1 < 8 && numPos[0] - 1 >= 0)
+			{
+				if(this.board[numPos[1] + 1][numPos[0] - 1] == '-' || this.board[numPos[1] + 1][numPos[0] - 1] == 'R' || this.board[numPos[1] + 1][numPos[0] - 1] == 'N'
+				|| this.board[numPos[1] + 1][numPos[0] - 1] == 'Q' || this.board[numPos[1] + 1][numPos[0] - 1] == 'K'
+				|| this.board[numPos[1] + 1][numPos[0] - 1] == 'P' || this.board[numPos[1] + 1][numPos[0] - 1] == 'B')
 			{
 				console.log(this.board[numPos[1] + 1][numPos[0] - 1]);
 				move.push(chess.convertNumberToLetter(numPos[1] + 1, numPos[0] - 1));
+				}
 			}
 		}
 		return move;
 	}
 	
+	check(piece)
+	{
+		var move = [];
+		var ar = [];
+		
+		var square;
+
+		ar = piece.split('');
+		
+		var team = ar[0];
+			
+		var type = ar[1];
+
+		if(team == 'w')
+		{
+			for(var i = 0; i < 8; i++)
+			{
+				for(var j = 0; j < 8; j++)
+				{
+					if(this.board[i][j] == "K")
+					{
+						square = chess.convertNumberToLetter(i, j);
+					}
+				}
+			}
+		}
+		else
+		{
+			for(var i = 0; i < 8; i++)
+			{
+				for(var j = 0; j < 8; j++)
+				{
+					if(this.board[i][j] == "k")
+					{
+						square = chess.convertNumberToLetter(i, j);
+					}
+				}
+			}
+		}
+
+		move = this.kingMove(team, square, move);
+		
+		var checkmate = false;
+		var check = 0;
+		
+		if(move.length != 0)
+		{
+			for(var i = 0; i <= move.length; i++)
+		{
+			var numPos = chess.convertLetterToNumber(move[i])
+			//Rook
+			for(var j = 1; j < 8; j++)
+			{
+				if(numPos[1] + j < 8)
+				{
+					if(this.board[numPos[1] + j][numPos[0]] != "r" || this.board[numPos[1] + j][numPos[0]] != "q")
+					{
+						check++;
+					}
+				}
+				if(numPos[1] - j >= 0)
+				{
+					if(this.board[numPos[1] - j][numPos[0]] != "r" || this.board[numPos[1] - j][numPos[0]] != "q")
+					{
+						check++;
+					}
+				}
+				if(numPos[0] + j < 8)
+				{
+					if(this.board[numPos[1] + j][numPos[0]] != "r" || this.board[numPos[1] + j][numPos[0]] != "q")
+					{
+						check++;
+					}
+				}
+				if(numPos[0] - j >= 0)
+				{
+					if(this.board[numPos[1]][numPos[0] - j] != "r" || this.board[numPos[1]][numPos[0] - j] != "q")
+					{
+						check++;
+					}
+				}
+			}
+			//Bishop
+			for(var j = 1; j < 8; j++)
+			{
+				if(numPos[1] + j < 8 && numPos[0] + j < 8)
+				{
+					if(this.board[numPos[1] + j][numPos[0] + j] != "Q" || this.board[numPos[1] + j][numPos[0] + j] != "B")
+					{
+						check++;
+					}
+				}
+
+				if(numPos[1] - j >= 0 && numPos[0] - j >= 0)
+				{
+					if(this.board[numPos[1] - j][numPos[0] - j] != "Q" ||  this.board[numPos[1] - j][numPos[0] - j] != "P"
+					|| this.board[numPos[1] - j][numPos[0] - j] != "B")
+					{
+						check++;
+					}	
+				}
+
+				if(numPos[1] - j >= 0 && numPos[0] + j < 8)
+				{
+					if(this.board[numPos[1] - j][numPos[0] + j] != "Q" || this.board[numPos[1] - j][numPos[0] + j] != "P"
+					|| this.board[numPos[1] - j][numPos[0] + j] != "B")
+					{
+						check++;
+					}
+
+				}
+
+				if(numPos[1] + j < 8 && numPos[0] - j >= 0)
+				{
+					if(this.board[numPos[1] + j][numPos[0] - j] != "Q" || this.board[numPos[1] + j][numPos[0] - j] != "B")
+					{
+						check++;
+					}
+				}
+			}
+			//Knight
+			if(numPos[1] + 2 < 8 && numPos[0] - 1 >= 0 )
+			{
+				if(this.board[numPos[1] + 2][numPos[0] - 1] == 'n')
+				{
+					check++;
+				}
+			}
+			if(numPos[1] + 2 < 8 && numPos[0] + 1 < 8 )
+			{
+				if(this.board[numPos[1] + 2][numPos[0] + 1] == 'n')
+				{
+					check++;
+				}
+			}
+
+			if(numPos[1] - 2 >= 0 && numPos[0] - 1 >= 0 )
+			{
+				if(this.board[numPos[1] - 2][numPos[0] - 1] == 'n')
+				{
+					check++;
+				}
+			}
+			
+			if(numPos[1] - 2 >= 0 && numPos[0] + 1 < 8 )
+			{
+				if(this.board[numPos[1] - 2][numPos[0] + 1] == 'n')
+				{
+					check++;
+				}
+			}
+			
+			if(numPos[1] + 1 < 8 && numPos[0] - 2 >= 0 )
+			{
+				if(this.board[numPos[1] + 1][numPos[0] - 2] == 'n')
+				{
+					check++;
+				}
+			}
+			
+			if(numPos[1] + 1 < 8 && numPos[0] + 2 < 8 )
+			{
+				if(this.board[numPos[1] + 1][numPos[0] + 2] == 'n')
+				{
+					check++;
+				}
+			}
+			
+			if(numPos[1] - 1 >= 0 && numPos[0] + 2 < 8 )
+			{
+				if(this.board[numPos[1] - 1][numPos[0] + 2] == 'n')
+				{
+					check++;
+				}
+			}
+			
+			if(numPos[1] - 1 >= 0 && numPos[0] - 2 >= 0 )
+			{
+				if(this.board[numPos[1] - 1][numPos[0] - 2] == 'n')
+				{
+					check++;
+				}
+			}
+		}
+		}
+		
+
+		if(check == 1)
+		{
+			return 'Check';
+		}
+		else
+		{
+			return '';
+		}
+		
+	}
+
 	moves(square, piece, move)
 	{
 		console.log("Moves")

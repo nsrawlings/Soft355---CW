@@ -9,24 +9,45 @@
         <link rel="stylesheet" href="https://unpkg.com/mocha/mocha.css" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 		<link rel="stylesheet" href="css/chessboard-1.0.0.css">
-		<script src="main.js"></script>
-		<script src="customChess.js"></script>
-		<script src="js/chessboard-1.0.0.js"></script>
+		<script type="application/x-javascript" src="main.js"></script>
+		<script type="application/x-javascript"  src="customChess.js"></script>
+		<script type="application/x-javascript" src="js/chessboard-1.0.0.js"></script>
     </head>
 
     <body>
-		
+		<div id = "room"> </div>
 		<div id="mainBoard" style="width: 60%"></div>
 		
 		<button id="showPositionBtn">Show position in console</button>
 		
-		<script src="js\chessboard-1.0.0.js"></script>
+		<script type="application/x-javascript" src="js\chessboard-1.0.0.js"></script>
         <!-- Do not edit this section. -->
         <div id="mocha"></div>
     
         <script src="https://unpkg.com/chai/chai.js"></script>
         <script src="https://unpkg.com/mocha/mocha.js"></script>
-    
+		
+		<script src="/socket.io/socket.io.js"></script>
+		<script>
+  			var socket = io('http://localhost:3000');
+			socket.on('connect', function (data) 
+			{
+    			console.log(data)
+			})
+
+			socket.on('connectToRoom',function(data) 
+			{
+         		document.getElementById("room").innerHTML = data;
+      		});
+
+			socket.on('sendMove', function(data) 
+			{
+				console.log(data)
+
+				recieveMove(data.msg)
+			})
+		</script>
+		
         <script class="mocha-init">
             mocha.setup('tdd');
             mocha.checkLeaks();
