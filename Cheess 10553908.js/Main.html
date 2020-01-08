@@ -16,9 +16,12 @@
 
     <body>
 		<div id = "room"> </div>
+		<div id = "check"> </div>
 		<div id="mainBoard" style="width: 60%"></div>
 		
 		<button id="showPositionBtn">Show position in console</button>
+		<button id="saveGameBtn">Save Game</button>
+		<button id="resetGameBtn">Reset Game</button>
 		
 		<script type="application/x-javascript" src="js\chessboard-1.0.0.js"></script>
         <!-- Do not edit this section. -->
@@ -61,6 +64,8 @@
 		
 		var board;
 		
+		var pastMoves = [];
+
 		var whiteSquareGrey = '#FF3A3A'
 		var blackSquareGrey = '#CD2D2D'
 		
@@ -80,6 +85,8 @@
 		});
 		
 		$('#showPositionBtn').on('click', clickShowPositionBtn); 
+		$('#saveGameBtn').on('click', clickSaveGameBtn);
+		$('#resetGameBtn').on('click', clickRestBoardBtn);
 
 	</script>
 		

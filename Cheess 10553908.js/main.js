@@ -19,6 +19,21 @@ function clickShowPositionBtn () {
   console.log(board.fen())
 }
 
+function clickSaveGameBtn()
+{
+	if(pastMoves.length != 0)
+	{
+		var saveMoves = { msg:  pastMoves }
+		socket.emit('saveMoves', saveMoves)
+	}
+}
+
+function clickRestBoardBtn()
+{
+	board.position('start');
+	pastmoves = [];
+}
+
 function removeGreySquares () {
   $('#myBoard .square-55d63').css('background', '')
   //console.log("Remove Grey Squares")
@@ -38,23 +53,39 @@ function greySquare (square) {
 function onDrop (source, target, piece) 
 {
 	var moves = [];
-	var leagl = false;
+	var legal = false;
   	removeGreySquares()
   	console.log("Drop")
 
   	moves = chess.moves(source, piece, moves);
-	var check = chess.check(piece);
 	for (var i = 0; i < moves.length; i++) 
 	{
 		if(moves[i] == target)
 		{
-			leagl = true;
+			legal = true;
 		}
   	}
 
-	if(leagl == false)
+	if(legal == false)
 	{
 		return 'snapback';
+	}
+	else
+	{
+		var check = chess.check(piece);
+		if(check == 'Check')
+		{
+			document.getElementById("check").innerHTML = check;
+		}
+		if(check == 'Check Mate')
+		{
+			document.getElementById("check").innerHTML = check;
+		}
+		else
+		{
+			document.getElementById("check").innerHTML = check;
+		}
+		
 	}
 }
 
@@ -85,6 +116,8 @@ function onSnapEnd () {
 	var fen = board.fen();
 	
 	chess.board = createArrayBoard(fen, chess.board);
+
+	pastMoves.push(fen);
 	
 	var move = { msg:  fen }
 	socket.emit('move', move)

@@ -830,7 +830,6 @@ class ChessRules {
 
 		var square;
 
-		var checkmate = false;
 		var check = false;
 
 		var checkRook1 = false;
@@ -841,6 +840,8 @@ class ChessRules {
 		var checkBishop2 = false;
 		var checkBishop3 = false;
 		var checkBishop4 = false;
+
+		var checkMate;
 
 		var blockedNorth = 0;
 		var blockedEast = 0;
@@ -880,7 +881,7 @@ class ChessRules {
 		move = this.kingMove(team, square, move);
 
 		if (move.length != 0) {
-			for (var i = 0; i < (move.length + 1); i++) {
+			for (var i = 0; i < move.length; i++) {
 				var numPos = chess.convertLetterToNumber(move[i])
 				//Rook
 				for (var j = 1; j < 8; j++) {
@@ -892,6 +893,7 @@ class ChessRules {
 							if (this.board[numPos[1] + j][numPos[0]] != "r" || this.board[numPos[1] + j][numPos[0]] != "q") {
 								check = true;
 								checkRook1 = true;
+								checkMate++;
 							}
 						}
 						else {
@@ -906,6 +908,7 @@ class ChessRules {
 							if (this.board[numPos[1] - j][numPos[0]] != "r" || this.board[numPos[1] - j][numPos[0]] != "q") {
 								check = true;
 								checkRook2 = true;
+								checkMate++;
 							}
 						}
 						else {
@@ -917,9 +920,10 @@ class ChessRules {
 							&& this.board[numPos[1]][numPos[0] + j] != "Q" && this.board[numPos[1]][numPos[0] + j] != "K"
 							&& this.board[numPos[1]][numPos[0] + j] != "P" && this.board[numPos[1]][numPos[0] + j] != "B"
 							&& blockedEast != 1) {
-							if (this.board[numPos[1] + j][numPos[0]] != "r" || this.board[numPos[1] + j][numPos[0]] != "q") {
+							if (this.board[numPos[1]][numPos[0] + j] != "r" || this.board[numPos[1]][numPos[0] + j] != "q") {
 								check = true;
 								checkRook3 = true;
+								checkMate++;
 							}
 						}
 						else {
@@ -934,6 +938,7 @@ class ChessRules {
 							if (this.board[numPos[1]][numPos[0] - j] != "r" || this.board[numPos[1]][numPos[0] - j] != "q") {
 								check = true;
 								checkRook4 = true;
+								checkMate++;
 							}
 							else {
 								blockedWest = 1;
@@ -948,9 +953,10 @@ class ChessRules {
 							&& this.board[numPos[1] + j][numPos[0] + j] != "Q" && this.board[numPos[1] + j][numPos[0] + j] != "K"
 							&& this.board[numPos[1] + j][numPos[0] + j] != "P" && this.board[numPos[1] + j][numPos[0] + j] != "B"
 							&& blockedNorthEast != 1) {
-							if (this.board[numPos[1] + j][numPos[0] + j] != "Q" || this.board[numPos[1] + j][numPos[0] + j] != "B") {
-								check++;
+							if (this.board[numPos[1] + j][numPos[0] + j] != "q" || this.board[numPos[1] + j][numPos[0] + j] != "b") {
+								check = true;
 								checkBishop1 = true;
+								checkMate++;
 							}
 						}
 						else {
@@ -961,17 +967,19 @@ class ChessRules {
 					if (numPos[1] - j >= 0 && numPos[0] - j >= 0) {
 						if (this.board[numPos[1] - j][numPos[0] - j] != "R" && this.board[numPos[1] - j][numPos[0] - j] != "N"
 							&& this.board[numPos[1] - j][numPos[0] - j] != "Q" && this.board[numPos[1] - j][numPos[0] - j] != "K"
-							&& this.board[numPos[1] - i][numPos[0] - j] != "P" && this.board[numPos[1] - j][numPos[0] - j] != "B"
+							&& this.board[numPos[1] - j][numPos[0] - j] != "P" && this.board[numPos[1] - j][numPos[0] - j] != "B"
 							&& blockedSouthWest != 1) {
-							if (this.board[numPos[1] - 1][numPos[0] - 1] != "P") {
+							if (this.board[numPos[1] - 1][numPos[0] - 1] != "p") {
 								check = true;
 								checkBishop2 = true;
 								blockedSouthWest = 1;
+								checkMate++;
 							}
 							else {
-								if (this.board[numPos[1] - j][numPos[0] - j] != "Q" || this.board[numPos[1] - j][numPos[0] - j] != "B") {
+								if (this.board[numPos[1] - j][numPos[0] - j] != "q" || this.board[numPos[1] - j][numPos[0] - j] != "b") {
 									check = true;
 									checkBishop2 = true;
+									checkMate++;
 								}
 							}
 						}
@@ -985,15 +993,17 @@ class ChessRules {
 							&& this.board[numPos[1] - j][numPos[0] + j] != "Q" && this.board[numPos[1] - j][numPos[0] + j] != "K"
 							&& this.board[numPos[1] - j][numPos[0] + j] != "P" && this.board[numPos[1] - j][numPos[0] + j] != "B"
 							&& blockedSouthEast != 1) {
-							if (this.board[numPos[1] - j][numPos[0] + j] != "P") {
+							if (this.board[numPos[1] - j][numPos[0] + j] != "p") {
 								check = true;
 								checkBishop3 = true;
 								blockedSouthEast = 1;
+								checkMate++;
 							}
 							else {
-								if (this.board[numPos[1] - j][numPos[0] + j] != "Q" || this.board[numPos[1] - j][numPos[0] + j] != "B") {
+								if (this.board[numPos[1] - j][numPos[0] + j] != "q" || this.board[numPos[1] - j][numPos[0] + j] != "b") {
 									check = true;
 									checkBishop3 = true;
+									checkMate++;
 								}
 							}
 						}
@@ -1007,9 +1017,10 @@ class ChessRules {
 							&& this.board[numPos[1] + j][numPos[0] - j] != "Q" && this.board[numPos[1] + j][numPos[0] - j] != "K"
 							&& this.board[numPos[1] + j][numPos[0] - j] != "P" && this.board[numPos[1] + j][numPos[0] - j] != "B"
 							&& blockedSouthWest != 1) {
-							if (this.board[numPos[1] + j][numPos[0] - j] != "Q" || this.board[numPos[1] + j][numPos[0] - j] != "B") {
+							if (this.board[numPos[1] + j][numPos[0] - j] != "q" || this.board[numPos[1] + j][numPos[0] - j] != "b") {
 								check = true;
 								checkBishop4 = true;
+								checkMate++;
 							}
 						}
 						else {
@@ -1068,6 +1079,14 @@ class ChessRules {
 		}
 		if (check == true) {
 			return 'Check';
+		}
+		if(checkRook1 && checkRook2 && checkRook3 && checkRook4 && checkBishop1 && checkBishop2 && checkBishop3 && checkBishop4)
+		{
+			return 'Check Mate';
+		}
+		if(checkMate >= 6)
+		{
+			return 'Check Mate';
 		}
 		else {
 			return '';
