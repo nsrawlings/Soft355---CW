@@ -93,11 +93,14 @@ app.get('/css/chessboard-1.0.0.css', function(req, res){
   })
 
     socket.on('saveMoves', function (saveMoves) {
-        console.log(saveMoves.msg);
+        console.log(saveMoves.playerTeam);
+        console.log(saveMoves.fen);
 
         // Create and save an instance of Moves
-        var newGame = new Game({Turn: "b",
-        Moves: saveMoves.msg});
+        var newGame = new Game({Turn: saveMoves.playerTeam,
+        Moves: saveMoves.fen});
+
+        console.log(newGame);
         newGame.save(function(err) {
             console.log("Saved student");
         });

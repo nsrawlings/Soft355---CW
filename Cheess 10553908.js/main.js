@@ -27,7 +27,23 @@ function clickSaveGameBtn()
 {
 	if(pastMoves.length != 0)
 	{
-		var saveMoves = { msg:  pastMoves }
+		var team;
+		if(playerTurn)
+		{
+			team = playerTeam;
+		}
+		else
+		{
+			if(playerTeam == 'W')
+			{
+				team = 'B';
+			}
+			else
+			{
+				team = 'W'
+			}
+		}
+		var saveMoves = { fen:  pastMoves, team: team}
 		socket.emit('saveMoves', saveMoves)
 	}
 }
@@ -139,6 +155,7 @@ function onSnapEnd () {
 function recieveMove(fen)
 {
 	board.position(fen);
+	pastMoves.push(fen)
 	chess.board = createArrayBoard(fen, chess.board);
 }
 
