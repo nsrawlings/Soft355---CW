@@ -1,7 +1,18 @@
 var app = require('express')();
 var express = require('express');
+var mongoose = require("mongoose");
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
+
+var uri = 'mongodb+srv://nickRawlingsAd:Arya6!Wyche@clustercw-bpzdu.mongodb.net/test?retryWrites=true&w=majority';
+
+mongoose.connect(uri, {useNewUrlParser: true});
+
+var GameSchema = new mongoose.Schema({
+    Turn : String, Moves : [String]
+  });
+
+var Game = mongoose.model("Game", GameSchema);
 
 app.get('/', function(req, res){
     res.sendFile(__dirname + '/Main.html');
@@ -51,8 +62,27 @@ app.get('/css/chessboard-1.0.0.css', function(req, res){
 
         socket.in("room-"+roomno).emit('sendMove', message)
     })
+
+    socket.on('saveMoves', function (saveMoves) {
+        console.log(saveMoves.msg);
+
+        // Create and save an instance of Moves
+        var newGame = new Game({Turn: "b",
+        Moves: saveMoves.msg});
+        newGame.save(function(err) {
+            console.log("Saved student");
+        });
+    })
   });
 
 http.listen(3000, function(){
-  console.log('listening on *:3000');
+
+    // Connect to Mongoose.
+    var db = mongoose.connection;
+    db.on('error', console.error.bind(console, 'connection error:'));
+    db.once('open', function () {
+        console.log("Connected to DB");
+    });
+
+    console.log('listening on *:3000');
 });
