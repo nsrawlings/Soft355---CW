@@ -28,6 +28,7 @@ function clickSaveGameBtn()
 	if(pastMoves.length != 0)
 	{
 		var team;
+		var gameName = document.getElementById('gameNameSave').value;
 		if(playerTurn)
 		{
 			team = playerTeam;
@@ -36,16 +37,26 @@ function clickSaveGameBtn()
 		{
 			if(playerTeam == 'W')
 			{
-				team = 'B';
+				team = "B";
 			}
 			else
 			{
-				team = 'W'
+				team = "W"
 			}
 		}
-		var saveMoves = { fen:  pastMoves, team: team}
+		var saveMoves = {name: gameName, fen:  pastMoves, team: team,}
 		socket.emit('saveMoves', saveMoves)
 	}
+}
+
+function clickLoadGameBtn()
+{
+
+	var gameName = document.getElementById('gameNameLoad').value;
+
+	var loadMoves = {name: gameName}
+	socket.emit('loadMoves', loadMoves)
+	
 }
 
 function clickRestBoardBtn()
@@ -61,6 +72,11 @@ function clickSetTeamBtn()
 	board.orientation('white');
 	var team = { msg:  playerTeam }
 	socket.emit('setTeam', team);
+}
+
+function loadGame(name, moves, turn)
+{
+	board.position(moves[moves.length - 1]);	
 }
 
 function removeGreySquares () {

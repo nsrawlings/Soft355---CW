@@ -18,11 +18,18 @@
 		<div id = "room"> </div>
 		<div id = "check"> </div>
 		<button id="setTeamBtn">Set Team White</button>
-		<div id="mainBoard" style="width: 60%"></div>
+		<div id="mainBoard" style="width: 40%"></div>
 		
-		<button id="showPositionBtn">Show position in console</button>
-		<button id="saveGameBtn">Save Game</button>
-		<button id="resetGameBtn">Reset Game</button>
+		
+		<div id = "gameOptions">
+			<button id="showPositionBtn">Show position in console</button>
+			<button id="saveGameBtn">Save Game</button>
+			<input name="searchTxt" type="text" maxlength="512" id="gameNameSave"/>
+			<button id="loadGameBtn">Load Game</button>
+			<input name="searchTxt" type="text" maxlength="512" id="gameNameLoad"/>
+			<button id="resetGameBtn">Reset Game</button>
+		</div>
+		
 		
 		<script type="application/x-javascript" src="js\chessboard-1.0.0.js"></script>
         <!-- Do not edit this section. -->
@@ -49,6 +56,12 @@
 				console.log(data)
 				playerTurn = true;
 				recieveMove(data.msg)
+			})
+
+			socket.on('loadMoves1', function(data) 
+			{
+				console.log(data)
+				loadGame(data.name, data.moves, data.turn);
 			})
 
 			socket.on('setTeam', function(data) 
@@ -99,6 +112,7 @@
 		
 		$('#showPositionBtn').on('click', clickShowPositionBtn); 
 		$('#saveGameBtn').on('click', clickSaveGameBtn);
+		$('#loadGameBtn').on('click', clickLoadGameBtn);
 		$('#resetGameBtn').on('click', clickRestBoardBtn);
 		$('#setTeamBtn').on('click', clickSetTeamBtn);
 
