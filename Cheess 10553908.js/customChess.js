@@ -449,7 +449,7 @@ class ChessRules {
 	}
 
 	bishopMove(team, position, move) {
-		var numPos = chess.convertLetterToNumber(position)
+		var numPos = chess.convertLetterToNumber(position);
 
 		var blockedNorthEast = 0;
 		var blockedNorthWest = 0;

@@ -41,6 +41,10 @@ app.get('/css/chessboard-1.0.0.css', function(req, res){
     res.sendFile(__dirname + '/css/chessboard-1.0.0.css');
   });
 
+app.get('/tests.js', function(req, res){
+    res.sendFile(__dirname + '/tests.js');
+  });
+
   app.use('/img/chesspieces/wikipedia/', express.static(__dirname + '/img/chesspieces/wikipedia/'));
 
   var roomno = 1;
@@ -104,11 +108,12 @@ app.get('/css/chessboard-1.0.0.css', function(req, res){
         console.log(game.GameName);
         console.log(game.Moves);
         console.log(game.Turn);
-        socket.in("room-"+roomno).emit('loadMoves1', message)
+        io.in("room-"+roomno).emit('loadMoves1', message)
       })
-      
-  })
+    })
   });
+
+  
 
 http.listen(3000, function(){
     // Connect to Mongoose.

@@ -177,7 +177,7 @@ function recieveMove(fen)
 
 function createArrayBoard(fen, arrayBoard)
 {
-	fenArray = fen.split('/');
+	var fenArray = fen.split('/');
 	var count;
 	var lineCount = 0;
 	for(var i = 7; i >= 0; i--)

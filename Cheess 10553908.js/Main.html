@@ -75,12 +75,15 @@
 		</script>
 		
         <script class="mocha-init">
-            mocha.setup('tdd');
-            mocha.checkLeaks();
+            mocha.setup('tdd', {globals: ['hasCert']});
+			mocha.checkLeaks();
+			//mocha.setup({globals: ['hasCert']});
         </script>
-        
+		
+		<script type="application/x-javascript" src="tests.js"></script>
+
         <script class="mocha-exec">
-            mocha.run();
+            mocha.run().globals(['board', 'playerTurn', 'playerTeam', 'pastMoves', 'whiteSquareGrey', 'blackSquareGrey']);
         </script>
 
 		<script>
