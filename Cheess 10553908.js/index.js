@@ -4,7 +4,14 @@ var mongoose = require("mongoose");
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
 
-var uri = 'mongodb+srv://nickRawlingsAd:Arya6!Wyche@clustercw-bpzdu.mongodb.net/test?retryWrites=true&w=majority';
+//const db = require("./server/db")
+
+var uri = 'mongodb+srv://nickRawlingsAd:Arya6!Wyche@clustercw-bpzdu.mongodb.net/soft355CWdb?retryWrites=true&w=majority';
+
+const mongodbOptions = {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+};
 
 mongoose.connect(uri, {useNewUrlParser: true});
 
@@ -13,6 +20,18 @@ var GameSchema = new mongoose.Schema({
   });
 
 var Game = mongoose.model("Game", GameSchema);
+
+var userSchema = new mongoose.Schema({
+  playerId: String,
+  loginName: String,
+  playerName: String,
+  password: String,
+  socketId: String,
+  activeRoomId: String,
+  gameHistory: [String]
+});
+
+var user = mongoose.model("user", userSchema);
 
 app.get('/', function(req, res){
     res.sendFile(__dirname + '/Main.html');
@@ -63,6 +82,16 @@ app.get('/css/chessboard-1.0.0.css', function(req, res){
         socket.in("room-"+roomno).emit('sendMove', message)
     })
 
+    socket.on('setTeam', function (move) {
+      console.log(socket.id +': ' + move.msg);
+
+      var message = {from: socket.id,
+          msg: move.msg
+      }
+
+      socket.in("room-"+roomno).emit('setTeam', message)
+  })
+
     socket.on('saveMoves', function (saveMoves) {
         console.log(saveMoves.msg);
 
@@ -76,11 +105,8 @@ app.get('/css/chessboard-1.0.0.css', function(req, res){
   });
 
 http.listen(3000, function(){
-
     // Connect to Mongoose.
-    var db = mongoose.connection;
-    db.on('error', console.error.bind(console, 'connection error:'));
-    db.once('open', function () {
+    mongoose.connect(uri, mongodbOptions).then((soft355CWdb) => {
         console.log("Connected to DB");
     });
 

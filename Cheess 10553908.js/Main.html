@@ -17,6 +17,7 @@
     <body>
 		<div id = "room"> </div>
 		<div id = "check"> </div>
+		<button id="setTeamBtn">Set Team White</button>
 		<div id="mainBoard" style="width: 60%"></div>
 		
 		<button id="showPositionBtn">Show position in console</button>
@@ -46,8 +47,17 @@
 			socket.on('sendMove', function(data) 
 			{
 				console.log(data)
-
+				playerTurn = true;
 				recieveMove(data.msg)
+			})
+
+			socket.on('setTeam', function(data) 
+			{
+				if(data.msg == 'W')
+				{
+					playerTeam = 'B'
+					board.orientation('black')
+				}
 			})
 		</script>
 		
@@ -64,6 +74,9 @@
 		
 		var board;
 		
+		var playerTurn;
+		var playerTeam;
+
 		var pastMoves = [];
 
 		var whiteSquareGrey = '#FF3A3A'
@@ -87,6 +100,7 @@
 		$('#showPositionBtn').on('click', clickShowPositionBtn); 
 		$('#saveGameBtn').on('click', clickSaveGameBtn);
 		$('#resetGameBtn').on('click', clickRestBoardBtn);
+		$('#setTeamBtn').on('click', clickSetTeamBtn);
 
 	</script>
 		

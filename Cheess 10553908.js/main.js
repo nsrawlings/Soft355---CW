@@ -9,6 +9,10 @@ function onDragStart (source, piece, position, orientation) {
       (orientation === 'black' && piece.search(/^b/) === -1)) {
     return false
   }
+  if(!playerTurn)
+  {
+	return false
+  }
 }
 
 function clickShowPositionBtn () {
@@ -32,6 +36,15 @@ function clickRestBoardBtn()
 {
 	board.position('start');
 	pastmoves = [];
+}
+
+function clickSetTeamBtn()
+{
+	playerTeam = 'W';
+	playerTurn = true;
+	board.orientation('white');
+	var team = { msg:  playerTeam }
+	socket.emit('setTeam', team);
 }
 
 function removeGreySquares () {
@@ -118,7 +131,7 @@ function onSnapEnd () {
 	chess.board = createArrayBoard(fen, chess.board);
 
 	pastMoves.push(fen);
-	
+	playerTurn = false;
 	var move = { msg:  fen }
 	socket.emit('move', move)
 }
@@ -181,7 +194,7 @@ function setBoardStart()
 		showNotation: true,
 		orientation: 'white',
 		position: 'start',
-		//onDragStart: onDragStart,
+		onDragStart: onDragStart,
 		onDrop: onDrop,
 		onMouseoutSquare: onMouseoutSquare,
 		onMouseoverSquare: onMouseoverSquare,
