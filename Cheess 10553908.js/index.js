@@ -71,7 +71,7 @@ app.get('/tests.js', function(req, res){
             msg: move.msg
         }
 
-        socket.in("room-"+roomno).emit('sendMove', message)
+        socket.in("room-"+roomno).broadcast.emit('sendMove', message)
     })
 
     socket.on('setTeam', function (move) {
@@ -82,7 +82,25 @@ app.get('/tests.js', function(req, res){
       }
 
       socket.in("room-"+roomno).emit('setTeam', message)
-  })
+    })
+
+    socket.on('refusedTeam', function (refused) {
+
+      var message = {from: socket.id,
+          msg: refused.msg
+      }
+
+      socket.in("room-"+roomno).emit('refusedReturn', message)
+    })
+
+    socket.on('victory', function (victory) {
+
+      var message = {from: socket.id,
+          msg: victory.msg
+      }
+
+      io.in("room-"+roomno).emit('victoryReturn', message)
+    })
 
     socket.on('saveMoves', function (saveMoves) {
         console.log(saveMoves.team);

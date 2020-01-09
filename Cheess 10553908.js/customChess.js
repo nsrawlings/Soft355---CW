@@ -1094,6 +1094,40 @@ class ChessRules {
 
 	}
 
+	checkForKings(fen)
+	{
+		var fenSplit = fen.split('');
+		var blackKing = false;
+		var whiteKing = false;
+		for(var i = 0; i <= (fenSplit.length - 1); i++)
+		{
+			if(fenSplit[i] == "k")
+			{
+				blackKing = true;
+			}
+			if(fenSplit[i] == "K")
+			{
+				whiteKing = true;
+			}
+		}
+
+		if(whiteKing && blackKing)
+		{
+			return 'kingsPresent';
+		}
+		else
+		{
+			if(whiteKing)
+			{
+				return 'whiteKing';
+			}
+			if(blackKing)
+			{
+				return 'blackKing';
+			}
+		}
+	}
+
 	moves(square, piece, move) {
 		console.log("Moves")
 		var ar = [];

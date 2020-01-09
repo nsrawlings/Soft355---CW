@@ -15,14 +15,6 @@ function onDragStart (source, piece, position, orientation) {
   }
 }
 
-function clickShowPositionBtn () {
-  console.log('Current position as an Object:')
-  console.log(board.position())
-
-  console.log('Current position as a FEN string:')
-  console.log(board.fen())
-}
-
 function clickSaveGameBtn()
 {
 	if(pastMoves.length != 0)
@@ -59,19 +51,31 @@ function clickLoadGameBtn()
 	
 }
 
-function clickRestBoardBtn()
+function clickConcedeBtn()
 {
-	board.position('start');
-	pastmoves = [];
+	if(playerTeam == "B")
+	{
+		var victory = { msg:  'whiteVictory' }
+		socket.emit('victory', victory)
+	}
+	if(playerTeam == "W")
+	{
+		var victory = { msg:  'blackVictory' }
+		socket.emit('victory', victory)
+	}
 }
 
 function clickSetTeamBtn()
 {
-	playerTeam = 'W';
-	playerTurn = true;
-	board.orientation('white');
-	var team = { msg:  playerTeam }
-	socket.emit('setTeam', team);
+	if(!gameInProgress)
+	{
+		playerTeam = 'W';
+		playerTurn = true;
+		board.orientation('white');
+		gameInProgress = true;
+		var team = { msg:  playerTeam }
+		socket.emit('setTeam', team);
+	}
 }
 
 function loadGame(name, moves, turn)
@@ -115,7 +119,7 @@ function onDrop (source, target, piece)
 	{
 		return 'snapback';
 	}
-	else
+	/*else
 	{
 		var check = chess.check(piece);
 		if(check == 'Check')
@@ -131,7 +135,7 @@ function onDrop (source, target, piece)
 			document.getElementById("check").innerHTML = check;
 		}
 		
-	}
+	}*/
 }
 
 function onMouseoverSquare (square, piece) {
@@ -163,9 +167,28 @@ function onSnapEnd () {
 	chess.board = createArrayBoard(fen, chess.board);
 
 	pastMoves.push(fen);
-	playerTurn = false;
-	var move = { msg:  fen }
-	socket.emit('move', move)
+
+	var kings = chess.checkForKings(fen);
+	if(kings == "kingsPresent")
+	{
+		playerTurn = false;
+		var move = { msg:  fen }
+		socket.emit('move', move)
+	}
+	else{
+		if(kings == "whiteKing")
+		{
+			var victory = { msg:  'whiteVictory' }
+			socket.emit('victory', victory)
+		}
+		if(kings == "blackKing")
+		{
+			var victory = { msg:  'blackVictory' }
+			socket.emit('victory', victory)
+		}
+	}
+	
+	
 }
 
 function recieveMove(fen)

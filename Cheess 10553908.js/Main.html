@@ -17,17 +17,16 @@
     <body>
 		<div id = "room"> </div>
 		<div id = "check"> </div>
-		<button id="setTeamBtn">Set Team White</button>
+		<button id="setTeamBtn">Go First</button>
 		<div id="mainBoard" style="width: 40%"></div>
 		
 		
 		<div id = "gameOptions">
-			<button id="showPositionBtn">Show position in console</button>
 			<button id="saveGameBtn">Save Game</button>
 			<input name="searchTxt" type="text" maxlength="512" id="gameNameSave"/>
 			<button id="loadGameBtn">Load Game</button>
 			<input name="searchTxt" type="text" maxlength="512" id="gameNameLoad"/>
-			<button id="resetGameBtn">Reset Game</button>
+			<button id="concedeGameBtn">Concede Game</button>
 		</div>
 		
 		
@@ -50,7 +49,42 @@
 			{
          		document.getElementById("room").innerHTML = data;
       		});
+			
+			socket.on('victoryReturn', function(data) 
+			{
+				if(playerTeam == "W")
+				{
+					var playAgian;
+					if(data.msg == "whiteVictory")
+					{
+						playAgian = confirm("You Win! Play again");
+					}
+					else
+					{
+						playAgian = confirm("You Lose! Play again");
+					}
+				}
+				if(playerTeam == "B")
+				{
+					if(data.msg == "blackVictory")
+					{
+						playAgian = confirm("You Win! Play again");
+					}
+					else
+					{
+						playAgian = confirm("You Lose! Play again");
+					}
+				}
 
+				if(playAgian)
+				{
+					board.position('start');
+					pastmoves = [];
+					gameInProgress = false;
+					playerTurn = false;
+				}
+      		});
+			
 			socket.on('sendMove', function(data) 
 			{
 				console.log(data)
@@ -64,26 +98,39 @@
 				loadGame(data.name, data.moves, data.turn);
 			})
 
+			socket.on('refusedReturn', function(data) 
+			{
+				alert("Request to go first Refused");
+			})
+
 			socket.on('setTeam', function(data) 
 			{
-				if(data.msg == 'W')
+				var goSecond = confirm("Are you ok with Playing Black");
+				if(goSecond)
 				{
-					playerTeam = 'B'
-					board.orientation('black')
+					if(data.msg == 'W')
+					{
+						playerTeam = 'B'
+						board.orientation('black')
+					}
+				}
+				else
+				{
+					var refused = { msg:  'Refused' };
+					socket.emit('refusedTeam', refused);
 				}
 			})
 		</script>
 		
         <script class="mocha-init">
-            mocha.setup('tdd', {globals: ['hasCert']});
+            mocha.setup('tdd');
 			mocha.checkLeaks();
-			//mocha.setup({globals: ['hasCert']});
         </script>
 		
 		<script type="application/x-javascript" src="tests.js"></script>
 
         <script class="mocha-exec">
-            mocha.run().globals(['board', 'playerTurn', 'playerTeam', 'pastMoves', 'whiteSquareGrey', 'blackSquareGrey']);
+            mocha.run().globals(['board', 'gameInProgress','playerTurn', 'playerTeam', 'pastMoves', 'whiteSquareGrey', 'blackSquareGrey']);
         </script>
 
 		<script>
@@ -92,6 +139,7 @@
 		
 		var playerTurn;
 		var playerTeam;
+		var gameInProgress = false;
 
 		var pastMoves = [];
 
@@ -113,10 +161,9 @@
 			
 		});
 		
-		$('#showPositionBtn').on('click', clickShowPositionBtn); 
 		$('#saveGameBtn').on('click', clickSaveGameBtn);
 		$('#loadGameBtn').on('click', clickLoadGameBtn);
-		$('#resetGameBtn').on('click', clickRestBoardBtn);
+		$('#concedeGameBtn').on('click', clickConcedeBtn);
 		$('#setTeamBtn').on('click', clickSetTeamBtn);
 
 	</script>
