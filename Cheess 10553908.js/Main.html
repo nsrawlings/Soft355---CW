@@ -95,7 +95,38 @@
 			socket.on('loadMoves1', function(data) 
 			{
 				console.log(data)
+				loadInProgress = false;
 				loadGame(data.name, data.moves, data.turn);
+			})
+
+			socket.on('saveTaken', function(data) 
+			{
+				if(saveInProgress)
+				{
+					alert('Name Taken - Please try another.');
+					saveInProgress = false;
+				}
+				
+			})
+
+			socket.on('saveSucessful', function(data) 
+			{
+				if(saveInProgress)
+				{
+					alert('Save Was sucessful');
+					saveInProgress = false;
+				}
+				
+			})
+
+			socket.on('noSaveGame', function(data) 
+			{
+				if(loadInProgress)
+				{
+					alert("Game doesn't exist please try again");
+					loadInProgress = false;
+				}
+				
 			})
 
 			socket.on('refusedReturn', function(data) 
@@ -140,7 +171,8 @@
 		var playerTurn;
 		var playerTeam;
 		var gameInProgress = false;
-
+		var saveInProgress = false;
+		var saveInProgress = false;
 		var pastMoves = [];
 
 		var whiteSquareGrey = '#FF3A3A'

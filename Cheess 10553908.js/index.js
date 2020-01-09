@@ -107,26 +107,57 @@ app.get('/tests.js', function(req, res){
         console.log(saveMoves.fen);
         console.log(saveMoves.name);
 
-        // Create and save an instance of Moves
-        var newGame = new Game({GameName: saveMoves.name, Turn: saveMoves.team,
-        Moves: saveMoves.fen});
-        newGame.save(function(err) {
-            console.log("Saved Game");
-        });
-    })
+        Game.findOne({"GameName":saveMoves.name}).then(function(game)
+        {
+          console.log(game);
+          if(game == null)
+          {
+            // Create and save an instance of Moves
+            var newGame = new Game({GameName: saveMoves.name, Turn: saveMoves.team,
+              Moves: saveMoves.fen});
+              newGame.save(function(err) {
+              console.log("Saved Game");
+              var message = {from: socket.id,
+                msg: 'Save Complete',
+              }
+              io.in("room-"+roomno).emit('saveSucessful', message)
+              });
+          }
+          else
+          {
+            if(game.GameName = saveMoves.name)
+            {
+              var message = {from: socket.id,
+                msg: 'Name Taken',
+              }
+              console.log("Name Taken");
+  
+              io.in("room-"+roomno).emit('saveTaken', message)
+            }
+          }
+        })  
+      })
 
     socket.on('loadMoves', function (loadMoves) {
       console.log(loadMoves.name);
       Game.findOne({"GameName":loadMoves.name}).then(function(game){
-        var message = {from: socket.id,
-          name: game.GameName,
-          moves: game.Moves,
-          turn: game.Turn
+        if(game == null)
+        {
+          var message = {from: socket.id,
+            msg: 'No Save Game'
+          }
+
+          io.in("room-"+roomno).emit('noSaveGame', message)
         }
-        console.log(game.GameName);
-        console.log(game.Moves);
-        console.log(game.Turn);
-        io.in("room-"+roomno).emit('loadMoves1', message)
+        else
+        {
+          var message = {from: socket.id,
+            name: game.GameName,
+            moves: game.Moves,
+            turn: game.Turn
+          }
+          io.in("room-"+roomno).emit('loadMoves1', message)
+        }
       })
     })
   });

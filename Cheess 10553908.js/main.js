@@ -21,6 +21,7 @@ function clickSaveGameBtn()
 	{
 		var team;
 		var gameName = document.getElementById('gameNameSave').value;
+		saveInProgress = true;
 		if(playerTurn)
 		{
 			team = playerTeam;
@@ -45,10 +46,13 @@ function clickLoadGameBtn()
 {
 
 	var gameName = document.getElementById('gameNameLoad').value;
+	if(gameName != "")
+	{
+		loadInProgress = true;
 
-	var loadMoves = {name: gameName}
-	socket.emit('loadMoves', loadMoves)
-	
+		var loadMoves = {name: gameName}
+		socket.emit('loadMoves', loadMoves)
+	}
 }
 
 function clickConcedeBtn()
